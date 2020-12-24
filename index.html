@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+</head>
+<body>
+  <button onclick="downloadBooks()">Download books</button>
+  <script>
+    function downloadBooks() {
+      const ajaxRequest = new XMLHttpRequest();
+ 		ajaxRequest.open('GET', 'books.json', true);
+ 		ajaxRequest.onreadystatechange = function() { 		 // for asynchronous  requests
+  if (ajaxRequest.readyState != 4) return;			 // for asynchronous  requests
+    if (ajaxRequest.status != 200) {        
+    	  alert('Error ' + ajaxRequest.status + ':'  + ajaxRequest.statusText)
+    } else { let data = JSON.parse(ajaxRequest.responseText);
+        for (let i = 0; i<data.length; i++) {
+            let liLast = document.createElement('li');
+        liLast.innerHTML = data[i].author;
+        document.body.append(liLast);}
+        }
+        
+  }
+ ajaxRequest.send();
+    }
+  </script>
+</body>
+</html>
